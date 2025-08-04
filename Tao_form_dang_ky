@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            border: 4px solid #1a5fb4;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a5fb4, #2c8bd1);
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .avatar-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #f0f4f8;
+            border: 3px solid #1a5fb4;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-wrapper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(26, 95, 180, 0.5);
+        }
+        
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .avatar-icon {
+            font-size: 40px;
+            color: #1a5fb4;
+        }
+        
+        .upload-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(26, 95, 180, 0.8);
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 12px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar-wrapper:hover .upload-text {
+            transform: translateY(0);
+        }
+        
+        #avatar-input {
+            display: none;
+        }
+        
+        .form-container {
+            padding: 20px 30px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #1a5fb4;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 95, 180, 0.2);
+        }
+        
+        .full-width {
+            margin-bottom: 15px;
+        }
+        
+        .full-width label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .full-width input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .full-width input:focus {
+            border-color: #1a5fb4;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 95, 180, 0.2);
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        
+        .terms input {
+            margin-top: 5px;
+            margin-right: 10px;
+            accent-color: #1a5fb4;
+        }
+        
+        .terms label {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .terms a {
+            color: #1a5fb4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #1a5fb4, #2c8bd1);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #154d94, #1a5fb4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+        
+        .footer a {
+            color: #1a5fb4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .header {
+                font-size: 20px;
+                padding: 20px 15px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            TẠO TÀI KHOẢN MỚI
+        </div>
+        
+        <div class="avatar-container">
+            <div class="avatar-wrapper" id="avatar-wrapper">
+                <div class="avatar-icon">👤</div>
+                <img id="avatar-preview" src="" alt="Avatar">
+                <div class="upload-text">Tải ảnh lên</div>
+                <input type="file" id="avatar-input" accept="image/*">
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Tên</label>
+                    <input type="text" id="name" placeholder="Nhập tên của bạn">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Họ</label>
+                    <input type="text" id="surname" placeholder="Nhập họ của bạn">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Quốc gia</label>
+                    <input type="text" id="country" placeholder="Nhập quốc gia">
+                </div>
+                <div class="form-group">
+                    <label for="city">Thành phố</label>
+                    <input type="text" id="city" placeholder="Nhập thành phố">
+                </div>
+            </div>
+            
+            <div class="full-width">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Nhập địa chỉ email">
+            </div>
+            
+            <div class="full-width">
+                <label for="login">Tên đăng nhập</label>
+                <input type="text" id="login" placeholder="Tạo tên đăng nhập">
+            </div>
+            
+            <div class="full-width">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" placeholder="Tạo mật khẩu">
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="agree">
+                <label for="agree">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a></label>
+            </div>
+            
+            <button class="submit-btn">ĐĂNG KÝ</button>
+        </div>
+        
+        <div class="footer">
+            Đã có tài khoản? <a href="#">Đăng nhập ngay</a>
+        </div>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarWrapper = document.getElementById('avatar-wrapper');
+            const avatarInput = document.getElementById('avatar-input');
+            const avatarPreview = document.getElementById('avatar-preview');
+            const avatarIcon = document.querySelector('.avatar-icon');
+            
+            // Xử lý sự kiện khi click vào avatar
+            avatarWrapper.addEventListener('click', function() {
+                avatarInput.click();
+            });
+            
+            // Xử lý khi chọn file ảnh
+            avatarInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                        avatarPreview.style.display = 'block';
+                        avatarIcon.style.display = 'none';
+                    }
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Xử lý khi nhấn nút đăng ký
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.addEventListener('click', function() {
+                alert('Đăng ký thành công!');
+            });
+        });
+    </script>
+</body>
+</html>

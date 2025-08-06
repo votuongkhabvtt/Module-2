@@ -1,1 +1,527 @@
-Ta_
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập Tài Khoản</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-blend-mode: multiply;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .login-header p {
+            font-size: 15px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .login-form {
+            padding: 35px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .input-group input:focus {
+            border-color: #4776E6;
+            box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.2);
+            outline: none;
+            background: #fff;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 45px;
+            color: #777;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .input-group input:focus + i {
+            color: #4776E6;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #4776E6;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            color: #555;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #4776E6;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .forgot-password::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4776E6;
+            transition: width 0.3s;
+        }
+
+        .forgot-password:hover::after {
+            width: 100%;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(71, 118, 230, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+        }
+
+        .login-button:hover::after {
+            transform: rotate(30deg) translate(20px, 20px);
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(71, 118, 230, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(71, 118, 230, 0.3);
+        }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin-bottom: 30px;
+            color: #777;
+            font-size: 15px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 35px);
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 13px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            background-color: white;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-btn.facebook {
+            color: #1877F2;
+            border-color: #e7f0ff;
+        }
+
+        .social-btn.google {
+            color: #DB4437;
+            border-color: #fdeceb;
+        }
+        
+        .social-btn.twitter {
+            color: #1DA1F2;
+            border-color: #e8f5fe;
+        }
+
+        .social-btn i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn.facebook:hover {
+            background-color: #f0f6ff;
+        }
+
+        .social-btn.google:hover {
+            background-color: #fef5f4;
+        }
+        
+        .social-btn.twitter:hover {
+            background-color: #f0f9ff;
+        }
+
+        .register-link {
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+
+        .register-link a {
+            color: #4776E6;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .register-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4776E6;
+            transition: width 0.3s;
+        }
+
+        .register-link a:hover::after {
+            width: 100%;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: #8E54E9;
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                border-radius: 12px;
+            }
+            
+            .login-header {
+                padding: 25px 15px;
+            }
+            
+            .login-form {
+                padding: 25px 20px;
+            }
+            
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+            
+            .social-btn {
+                width: 100%;
+            }
+            
+            .divider::before,
+            .divider::after {
+                width: calc(50% - 25px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <i class="fas fa-lock"></i>
+        <span>SecureLogin</span>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Đăng Nhập Tài Khoản</h1>
+            <p>Vui lòng nhập thông tin của bạn để tiếp tục</p>
+        </div>
+        
+        <form class="login-form">
+            <div class="input-group">
+                <label for="email">Địa chỉ Email</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="Nhập địa chỉ email của bạn" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Nhập mật khẩu của bạn" required>
+            </div>
+            
+            <div class="remember-forgot">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Ghi nhớ đăng nhập</label>
+                </div>
+                <a href="#" class="forgot-password">Quên mật khẩu?</a>
+            </div>
+            
+            <button type="submit" class="login-button">ĐĂNG NHẬP</button>
+            
+            <div class="divider">hoặc đăng nhập với</div>
+            
+            <div class="social-login">
+                <button type="button" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    Facebook
+                </button>
+                <button type="button" class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                    Twitter
+                </button>
+                <button type="button" class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+            </div>
+            
+            <div class="register-link">
+                Chưa có tài khoản? <a href="#">Đăng ký tại đây</a>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Thêm hiệu ứng cho các trường nhập liệu
+        document.querySelectorAll('.input-group input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.querySelector('i').style.color = '#4776E6';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.querySelector('i').style.color = '#777';
+            });
+        });
+        
+        // Xử lý sự kiện đăng nhập
+        const loginButton = document.querySelector('.login-button');
+        
+        loginButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if(email && password) {
+                // Hiệu ứng loading
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+                this.disabled = true;
+                
+                // Mô phỏng quá trình đăng nhập
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                    
+                    // Hiển thị thông báo thành công
+                    const successMsg = document.createElement('div');
+                    successMsg.innerHTML = '<i class="fas fa-check-circle"></i> Đăng nhập thành công!';
+                    successMsg.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #4CAF50;
+                        color: white;
+                        padding: 15px 25px;
+                        border-radius: 8px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                        animation: slideIn 0.5s, fadeOut 0.5s 2.5s;
+                        z-index: 1000;
+                    `;
+                    document.body.appendChild(successMsg);
+                    
+                    // Tự động xóa thông báo sau 3 giây
+                    setTimeout(() => {
+                        successMsg.remove();
+                    }, 3000);
+                }, 2000);
+            } else {
+                // Hiệu ứng rung khi thông tin không đầy đủ
+                this.classList.add('shake');
+                setTimeout(() => {
+                    this.classList.remove('shake');
+                }, 500);
+            }
+        });
+        
+        // Tạo hiệu ứng rung
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-5px); }
+                40%, 80% { transform: translateX(5px); }
+            }
+            .shake {
+                animation: shake 0.5s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
